@@ -12,7 +12,7 @@
             <div class="col-8">
                 <div class="d-flex align-items-baseline">
                     <div class="h4 pt-2" style="margin-right: 10px">{{ $user->username }}</div>
-                    <button class="btn btn-sm btn-primary">S'abonner</button>
+                    <follow-button profile-id="{{ $user->profile->id }}" follows="{{ $follows }}"></follow-button>
                 </div>
 
                 <div class="d-flex" style="margin-top: 3px">
@@ -20,10 +20,10 @@
                         <strong>{{ $user->posts->count() }}</strong> publication(s)
                     </div>
                     <div style="margin-right: 13px">
-                        <strong>951</strong> Abonnés
+                        <strong>{{ $user->profile->followers->count() }}</strong> Abonné(s)
                     </div>
                     <div style="margin-right: 13px">
-                        <strong>3</strong> abonnements
+                        <strong>{{ $user->following->count() }}</strong> abonnement(s)
                     </div>
                 </div>
 

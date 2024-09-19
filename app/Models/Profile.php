@@ -18,8 +18,13 @@ class Profile extends Model
 
     public function getImage()
     {
-        $imagePath = $this->image ?? 'avatars/avatar.png';
+        $imagePath = $this->image ?? 'avatars/default.png';
 
         return "/storage/" . $imagePath;
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class);
     }
 }
