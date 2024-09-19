@@ -16,15 +16,9 @@
                 </div>
 
                 <div class="d-flex" style="margin-top: 3px">
-                    <div style="margin-right: 13px">
-                        <strong>{{ $user->posts->count() }}</strong> publication(s)
-                    </div>
-                    <div style="margin-right: 13px">
-                        <strong>{{ $user->profile->followers->count() }}</strong> Abonné(s)
-                    </div>
-                    <div style="margin-right: 13px">
-                        <strong>{{ $user->following->count() }}</strong> abonnement(s)
-                    </div>
+                    <div style="margin-right: 13px"><strong>{{ $postsCount }}</strong> publication(s)</div>
+                    <div style="margin-right: 13px"><strong>{{ $followersCount }}</strong> Abonné(s)</div>
+                    <div style="margin-right: 13px"><strong>{{ $followingCount }}</strong> abonnement(s)</div>
                 </div>
 
                 @can('update', $user->profile)

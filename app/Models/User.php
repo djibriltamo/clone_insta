@@ -3,10 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Mail\WelcomeUserMail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -49,9 +53,19 @@ class User extends Authenticatable
         parent::boot();
 
         static::created(function ($user) {
-            $user->profile()->create([
+            // Crée le profil pour l'utilisateur
+            $data = $user->profile()->create([
                 'title' => 'Profil de ' . $user->username
             ]);
+
+            // Vérifie que le profil est bien créé
+            if (!$data) {
+                Log::error('Profile creation failed for user', ['user' => $user]);
+                return;
+            }
+
+            // Utilise directement l'email de l'utilisateur
+            Mail::to($user->email)->send(new WelcomeUserMail($user));
         });
     }
 

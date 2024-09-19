@@ -29,8 +29,10 @@ Route::get('/profiles/{user}/edit', [ProfileController::class, 'edit'])->name('p
 Route::patch('/profiles/{user}', [ProfileController::class, 'update'])->name('profiles.update');
 
 //Route des postes
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
+//Route pour les abonnements
 Route::post('/follows/{profile}', [FollowController::class, 'store'])->name('follows.store');

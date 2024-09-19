@@ -12,6 +12,20 @@ class PostController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function index()
+    {
+        $users = auth()->user()->following->pluck('user_id');
+
+        if ($users->isEmpty()) {
+            return redirect()->route('home')->with('message', 'Vous ne suivez aucun utilisateur.');
+        }
+
+        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
+
+        return view('posts.index', compact('posts'));
+    }
+
     
     public function create()
     {
